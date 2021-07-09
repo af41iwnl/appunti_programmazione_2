@@ -4,7 +4,7 @@ C++ の Sanitizer の動作確認用プログラム
 
 ## 必要なもの
 
-- GCC または Clang
+- Clang コンパイラ
 - CMake
 
 ## ビルド手順
