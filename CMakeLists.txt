@@ -24,3 +24,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_BINARY_DIR}/bin>)
 add_executable(test_ouf_of_bound out_of_bound.cpp)
 target_compile_options(test_ouf_of_bound PRIVATE -fsanitize=address)
 target_link_options(test_ouf_of_bound PRIVATE -fsanitize=address)
+
+add_executable(test_ouf_of_scope out_of_scope.cpp)
+target_compile_options(test_ouf_of_scope PRIVATE -fsanitize=address)
+target_link_options(test_ouf_of_scope PRIVATE -fsanitize=address)
