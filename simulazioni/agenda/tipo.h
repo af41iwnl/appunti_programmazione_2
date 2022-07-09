@@ -20,7 +20,7 @@ typedef appuntamento tipo_inf;
  * 
  * @return int zero x and t have the same date and staring hour; x.ora_i - y.ora_i (lexicographically) otherwise
  */
-int compare(tipo_inf x, tipo_inf y);
+bool compare(tipo_inf x, tipo_inf y);
 
 /**
  * @brief copy the entire 'appuntamento' structure from src to dst
