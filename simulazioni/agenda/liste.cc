@@ -39,29 +39,30 @@ lista insert_elem(lista l, elem* e){
 	return e;
 }
 
-lista insert_elem_sorted(lista l, elem* e){
-	if (l == NULL) {  // inserimento lista vuota
-		e->pun = NULL;
-		e->prev = NULL;
-		return e;
+lista insert_elem_sorted(lista l, elem* e){ 
+    if (l == NULL){
+		l =  insert_elem(l, e);
 	}
-
-	elem *cur = l;
-	elem *prev = NULL;
-	while (cur != NULL && compare(cur->inf, e->inf) < 0) {
-		prev = cur;
-		cur = cur->pun;
-	}
-
-	e->pun = cur;
-	e->prev = prev;
-	if (prev != NULL)
-		prev->pun = e;
-	else
-		l = e;
-
-	if (cur != NULL)
-		cur->prev = e;
+    else if ((strcmp(head(l).data, e->inf.data) > 0) || ((strcmp(head(l).data, e->inf.data) == 0) && strcmp(head(l).ora_i, e->inf.ora_i) >0)) {
+        e->pun = l;
+        e->pun->prev = e;
+        l = e;
+    }else{
+        lista tmp = l;
+        while(
+				(tail(tmp) != NULL) && 
+				((strcmp(tail(tmp)->inf.data, e->inf.data)<0) || (strcmp(tail(tmp)->inf.data, e->inf.data) == 0) && 
+				(strcmp(tail(tmp)->inf.ora_i, e->inf.ora_i) < 0))
+			){
+			tmp = tail(tmp);
+		}
+        e->pun = tail(tmp);
+        if (tail(tmp) != NULL)
+            e->pun->prev = e;
+  
+        tmp->pun = e;
+        e->prev = tmp;
+    }
 	return l;
 }
 

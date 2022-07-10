@@ -51,12 +51,13 @@ void agenda(lista&  agenda, appuntamento  a){
       if(compare(head(tmp), a) == true){
         trovato = true;
       }
+
       tmp = tail(tmp);
     }
 
     if(!trovato){
       elem* app = new_elem(a);
-      agenda = insert_elem(agenda,app);
+      agenda = insert_elem_sorted(agenda,app);
     }else{
       cout<<"Errore,l'appuntamento ";
       print(a);
@@ -76,25 +77,20 @@ void stampa(lista agenda){
 void quanti(lista agenda, appuntamento a){
   int contPrima = 0;
   int contDopo = 0;
-  bool arrivato = false;
+
 
   while(agenda != NULL){
-    if(prev(agenda) != NULL){
-      agenda = prev(agenda);
-    }else{
-      arrivato = true;
-    }
-
-    if(arrivato == true){
-      if((head(agenda).data == a.data) && compare(head(agenda), a) == false){
-        if(head(agenda).ora_i < a.ora_i){
+      if((strcmp(head(agenda).data, a.data) == 0) && compare(head(agenda), a) == false){
+        print(head(agenda));
+        print(a);
+        cout<<endl;
+        if(strcmp(head(agenda).ora_f, a.ora_i) < 0){
           contPrima++;
-        }else if(head(agenda).ora_i > a.ora_i){
+        }else if(strcmp(head(agenda).ora_i, a.ora_f) > 0){
           contDopo++;
         }
       }
-      agenda = tail(agenda);
-    }
+      agenda = tail(agenda); 
   }
 
   cout<<contPrima<<" appuntamenti prima e "<<contDopo<<" appuntamenti dopo"<<endl;
