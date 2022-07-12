@@ -57,6 +57,11 @@ int main(){
   return 0;
 }
 
+/**
+* @brief procedura che riempie l'agenda di appuntamenti
+* @param agenda lista doppia di appuntamenti 
+* @param appuntamento struct che memorizza data, ora inizio, ora fine, descrizione di un appuntamento
+*/
 
 void agenda(lista&  agenda, appuntamento  a){
     lista tmp = agenda;
@@ -81,6 +86,10 @@ void agenda(lista&  agenda, appuntamento  a){
     
 }
 
+/**
+* @brief procedura che stampa l'agenda
+* @param agenda lista doppia di appuntamenti 
+*/
 void stampa(lista agenda){
   while(agenda != NULL){
     print(head(agenda));
@@ -88,6 +97,11 @@ void stampa(lista agenda){
   }
 }
 
+/**
+* @brief procedura che conta gli appuntamenti che precedono e seguono un appuntamento dato
+* @param agenda lista doppia di appuntamenti 
+* @param appuntamento struct che memorizza data, ora inizio, ora fine, descrizione di un appuntamento
+*/
 void quanti(lista agenda, appuntamento a){
   int contPrima = 0;
   int contDopo = 0;
@@ -108,6 +122,11 @@ void quanti(lista agenda, appuntamento a){
   cout<<contPrima<<" appuntamenti prima e "<<contDopo<<" appuntamenti dopo"<<endl;
 }
 
+/**
+* @brief funzione che ritorna una nuova lista contenente solo gli appuntamenti con la descrizione passata per parametro e modifica la lista passata per referenza eliminando tali appuntamenti 
+* @param agenda lista doppia di appuntamenti 
+* @param appuntamento struct che memorizza data, ora inizio, ora fine, descrizione di un appuntamento
+*/
 
 lista  estrai(lista& agenda, appuntamento d){
   lista l1 = NULL;
