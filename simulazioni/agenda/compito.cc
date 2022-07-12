@@ -11,6 +11,7 @@ using namespace std;
 void agenda(lista&  agenda, appuntamento  a);
 void stampa(lista agenda);
 void quanti(lista agenda, appuntamento a);
+lista  estrai(lista& agenda, appuntamento d);
 
 int main(){
   ifstream f;
@@ -19,25 +20,39 @@ int main(){
   
   lista l = NULL;
 
-  while(!f.eof()){
-    appuntamento a;
+  appuntamento a;
+  while(f>>a.data){
     string s;
-    f>>a.data>>a.ora_i>>a.ora_f;
+    f>>a.ora_i>>a.ora_f;
     getline(f>>ws, s);
+    s.pop_back();
     strcpy(a.descr, s.c_str());
-
-    
     agenda(l, a);
   }
 
   f.close();
 
+  cout<<"AGENDA:"<<endl;
   stampa(l);
 
   appuntamento c;
   cout<<"inserire data, ora inizio, ora fine, descrizione, dell'appuntamento da controllare"<<endl;
   cin>>c.data>>c.ora_i>>c.ora_f>>c.descr;
   quanti(l, c);
+
+  appuntamento desc;
+  string ap;
+  cout<<"inserire descrizione da estrarre"<<endl;
+  getline(cin>>ws, ap);
+  strcpy(desc.descr, ap.c_str());
+
+  cout<<"GLI APPUNTAMENTI IN AGENDA CON LA DESCRIZIONE "<<desc.descr<<" SONO:"<<endl;
+  lista l1 = estrai(l , desc);
+  stampa(l1);
+
+
+  cout<<"AGENDA SENZA "<<desc.descr<<":"<<endl;
+  stampa(l);
 
   return 0;
 }
@@ -67,7 +82,6 @@ void agenda(lista&  agenda, appuntamento  a){
 }
 
 void stampa(lista agenda){
-  cout<<"AGENDA:"<<endl;
   while(agenda != NULL){
     print(head(agenda));
     agenda = tail(agenda);
@@ -79,11 +93,9 @@ void quanti(lista agenda, appuntamento a){
   int contDopo = 0;
 
 
+
   while(agenda != NULL){
       if((strcmp(head(agenda).data, a.data) == 0) && compare(head(agenda), a) == false){
-        print(head(agenda));
-        print(a);
-        cout<<endl;
         if(strcmp(head(agenda).ora_f, a.ora_i) < 0){
           contPrima++;
         }else if(strcmp(head(agenda).ora_i, a.ora_f) > 0){
@@ -94,4 +106,28 @@ void quanti(lista agenda, appuntamento a){
   }
 
   cout<<contPrima<<" appuntamenti prima e "<<contDopo<<" appuntamenti dopo"<<endl;
+}
+
+
+lista  estrai(lista& agenda, appuntamento d){
+  lista l1 = NULL;
+  lista tmp = agenda;
+    
+    while(tmp != NULL){
+      if(strcmp(head(tmp).descr, d.descr) == 0){
+        elem* e = tmp;
+        if(prev(tmp) != NULL){
+          (e->prev)->pun = e->pun;
+        }
+        if(tail(tmp)!=NULL){
+          (e->pun)->prev=e->prev;
+        }
+        tmp = tail(tmp);
+        l1 = insert_elem_sorted(l1, e);
+      }else{
+        tmp = tail(tmp);
+      }
+    }
+
+    return l1;
 }
