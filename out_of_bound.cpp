@@ -23,10 +23,13 @@
  * \brief Test of access of memory out of bounds.
  */
 #include <vector>
+#include <iostream>
+using namespace std;
 
 int main() {
     constexpr std::size_t size = 128;
     auto vec = std::vector<double>(size);
     vec[size] = 0;
+    cout<<"CIAo"<<endl;
     return 0;
 }
