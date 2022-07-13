@@ -1,22 +1,15 @@
-CXX = g++
-CXXFLAGS = -std=c++2a -Wall --pedantic \
-	# -DDEBUG
-OBJS = tipo.o liste.o grafo.o compito.o
-EXEC = compito
-
--include dependencies.txt
-
-build: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
-
-.PHONY: clean cleanall gendep gendoc run
+compito: compito.o grafo.o liste.o tipo.o
+	g++ -o compito compito.o grafo.o liste.o tipo.o
+compito.o:
+	g++ -c compito.cpp
+grafo.o:
+	g++ -c grafo.cpp
+liste.o:
+	g++ -c liste.cpp
+tipo.o:
+	g++ -c tipo.cpp
+.PHONY clean cleanall:
 clean:
-	rm -rf $(OBJS)
+	rm -f *.o
 cleanall:
-	rm -rf $(OBJS) $(EXEC) dependencies.txt doc/
-gendep:
-	$(CXX) -MM *.cpp > dependencies.txt
-gendoc:
-	doxygen
-run:
-	./$(EXEC)
+	rm -f compito *.o
