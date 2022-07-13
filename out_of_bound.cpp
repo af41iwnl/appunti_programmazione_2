@@ -31,5 +31,7 @@ int main() {
     auto vec = std::vector<double>(size);
     vec[size] = 0;
     cout<<"CIAo"<<endl;
+    cout<<"Nibba"<<endl;
+    
     return 0;
 }
