@@ -1,18 +1,24 @@
-#include "tipo.h"
 #include <iostream>
+#include "tipo.h"
 
-int compare(tipo_inf x, tipo_inf y) {
-    if (x.seme != y.seme)
-        return x.seme - y.seme;
-    else
-        return x.valore - y.valore;
+using namespace std;
+
+int compare(tipo_inf a, tipo_inf b){
+    if(a.seme == b.seme && a.valore == b.valore){
+        return 0;
+    }else if(a.seme == b.seme){
+        return a.valore - b.valore;
+    }else if(a.valore == b.valore){
+        return a.seme - b.seme;
+    }
+
+    return ((a.seme+a.valore)-(b.seme+b.valore));
+}
+void copy(tipo_inf& dest, tipo_inf src){
+    dest.seme = src.seme;
+    dest.valore = src.valore;
 }
 
-void copy(tipo_inf &dst, tipo_inf src) {
-    dst = src;
-}
-
-void print(tipo_inf x) {
-    using namespace std;
-    cout << x.valore << x.seme;
+void print(tipo_inf t){
+    cout<<t.valore<<t.seme<<" ";
 }

@@ -1,23 +1,13 @@
-CXX = g++
-CXXFLAGS = -Wall --pedantic \
-	# -DDEBUG
-OBJS = compito.o liste.o tipo.o
-EXEC = compito
-
--include dependencies.txt
-
-build: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
-
-.PHONY: clean cleanall gendep run
+compito: compito.o liste.o tipo.o
+	g++ -o compito compito.o liste.o tipo.o
+compito.o:
+	g++ -c compito.cpp
+liste.o:
+	g++ -c liste.cpp
+tipo.o:
+	g++ -c tipo.cpp
+.PHONY clean cleanall:
 clean:
-	rm -rf $(OBJS)
-
+	rm -f *.o
 cleanall:
-	rm -rf $(OBJS) $(EXEC) dependencies.txt
-
-gendep:
-	$(CXX) -MM *.cpp > dependencies.txt
-
-run:
-	./$(EXEC)
+	rm -f compito *.o
